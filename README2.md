@@ -11,6 +11,7 @@ This document **extends** the **Treat Menu** app from [`README.md`](./README.md)
 Continue your existing Vite project from part 1, or copy it to a new folder if you prefer a clean slate.
 
 1. Add **React Router** to the same project (search: _“React Router Vite”_ → [reactrouter.com](https://reactrouter.com)).
+   - Installation: https://reactrouter.com/start/declarative/installation#introduction
 2. Keep **Tailwind** as in part 1.
 
 **Useful APIs and docs (bookmark these):**
