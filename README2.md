@@ -47,18 +47,20 @@ By the end of **Phase 6**, your Treat Menu should feel like a **small multi-scre
 
 1. **Mount-only behavior**  
    Use `useEffect` with an **empty dependency array** `[]` to do something once when a screen/component mounts, for example:
-   - Set **`document.title`** to something like `Treat Menu` (or include a subtitle), **or**
-   - Log a single “app opened” message in dev (remove or guard for production if your instructor prefers).
+   - Set **`document.title`** to something like `Treat Menu` (or include a subtitle)
 
 2. **Effect with dependencies**  
-   Add state that **should** drive a side effect (examples: a **“kitchen status”** string, a **selected category**, or **order count** from part 1). Use `useEffect` **with** `[dependency]` (or `[dep1, dep2]`) so that when that value changes, something **outside render** updates — e.g. sync `document.title` to include order count.
+   Add state that **should** drive a side effect (example: **order count** from part 1). Use `useEffect` **with** `[dependency]` (or `[dep1, dep2]`) so that when that value changes, something **outside render** updates — e.g. sync `document.title` to include order count.
 
 3. **Cleanup on unmount**  
    In the same or another effect, subscribe to something that needs teardown, for example:
    - `setInterval` for a **“shop open”** countdown or clock — **clear the interval** in the cleanup function
+   - You can create a `Timer` component to practice clearing the interval in the teardown of the component.
+   - Hint: Discuss the timer component with me when you reach this point.
 
 4. **`useRef` (DOM or stable handle)**
-   - **Focus:** After mount, **focus** an input (e.g. fake “promo code” or search) using a ref and a **mount** `useEffect`, **or**
+   - **Focus:** After mount, **focus** an input (e.g. fake “promo code” or search) using a ref and a **mount** `useEffect`.
+   - Create a `PromoField` component that focuses the input on `mount`.
 
    Do **not** store ordinary visible UI state in a ref for this exercise — use **`useState`** for that; use the ref for **imperative** DOM behavior.
 
@@ -80,27 +82,19 @@ By the end of **Phase 6**, your Treat Menu should feel like a **small multi-scre
 
 **Tasks:**
 
-1. **Router at the root**  
-   Wrap your app (often in `main.jsx` or `App.jsx`) with **`BrowserRouter`** so the whole Treat Menu lives inside the router.
+1. Wrap your App.jsx component into the BrowserRouter. Hint: https://reactrouter.com/start/declarative/installation#introduction
 
-2. **Define routes**  
-   Use **`Routes`** and **`Route`** to map paths to components, for example:
-   - **`/`** — Home or landing (short intro + link to menu).
-   - **`/menu`** — Your existing list of treat **cards** (from part 1), still using `.map()` and keys.
-   - **`/treat/:treatId`** — **Detail page** for one treat: `treatId` should match **`id`** fields in your data (e.g. `brownie`, `cookie`).
+2. Add a **`pages/`** folder. Create **`HomePage`** and **`MenuPage`** and render your **existing** part 1 components on them (move or re-import what you already had in `App`).
 
-3. **`Link` for client-side navigation**  
-   Replace plain `<a href="...">` **internal** navigation with **`Link to="..."`** so the browser does **not** full-reload. Style links with Tailwind (`underline`, `hover:`, active states if you like).
+3. Hook up the **router** so you can **move between** those pages (**`BrowserRouter`**, **`Routes`**, **`Route`**, **`Link`**) without a full reload.
 
-4. **Parameterized detail page**  
-   On `/treat/:treatId`, use **`useParams`** to read `treatId`, **find** the matching object in your treats array, and render **name**, **price**, and maybe a short **placeholder description**. If `treatId` is unknown, show a clear **“Not found”** UI (and optionally a `Link` back to `/menu`).
+4. Add **`TreatDetailPage`**, use **`useParams`** on a **`/treat/:treatId`** route, and from each **`TreatCard`** use a **`Link`** (or similar) on the button / “view details” control to go to **`/treat/<id>`**.
 
-5. **Connect list → detail**  
-   Each card on `/menu` should link to **`/treat/<id>`** (via `Link` or a button wrapped appropriately) so you can drill into a treat.
+5. Add **`ThanksPage`**. Use **`useLocation`** there to read **`location.state`** and show a thank-you to the user. Pass that **`state`** from the **Place order** (or equivalent) button on **`TreatDetailPage`** when you navigate to thanks.
 
 **Hints to Google:**
 
-- _“React Router v6 BrowserRouter Routes Route”_
+- _“React Router BrowserRouter Routes Route”_
 - _“React Router Link vs a tag”_
 - _“React Router useParams”_
 
@@ -121,8 +115,6 @@ By the end of **Phase 6**, your Treat Menu should feel like a **small multi-scre
    - On the detail page, a **“Back to menu”** button that calls **`navigate('/menu')`**, **or**
    - After a fake “**Place order**” action, **`navigate('/thanks')`** (you can add a minimal `/thanks` route).
 
-   Optional: use **`navigate(-1)`** once to mirror “browser back” behavior — compare mentally to a `Link`.
-
 2. **`useLocation`**  
    Use **`useLocation`** in a way that affects UI, for example:
    - A small **breadcrumb** or **page label** derived from **`location.pathname`**, **or**
@@ -133,8 +125,6 @@ By the end of **Phase 6**, your Treat Menu should feel like a **small multi-scre
 - _“React Router useNavigate”_
 - _“React Router useLocation state”_
 - _“React Router useHistory vs useNavigate migration”_
-
-**Checklist at the end:** Programmatic navigation works; `useLocation` used meaningfully; written comparison of **`useHistory`** (v5) vs your **v6** usage is present; Tailwind still used for layout and nav; part 1 behavior (cards, state) still makes sense inside routes.
 
 ---
 
