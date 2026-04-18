@@ -10,9 +10,9 @@ This document **extends** the **Treat Menu** by adding **network data**, **share
 
 Continue your existing Vite project from part 2.
 
-1. Install **Zod** (schema validation): search _“Zod npm”_ → [zod.dev](https://zod.dev).
-2. Install **React Hook Form** and the Zod resolver for uncontrolled-style forms: search _“react-hook-form zod resolver”_ → [@hookform/resolvers](https://github.com/react-hook-form/resolvers).
-3. Install **Zustand** (small global store): search _“Zustand React”_ → [docs.pmnd.rs/zustand](https://docs.pmnd.rs/zustand/getting-started/introduction).
+1. Install **Zod** (schema validation): search _“Zod npm”_ → [zod.dev](https://zod.dev). `npm install zod`
+2. Install **React Hook Form** and the Zod resolver for uncontrolled-style forms: search _“react-hook-form zod resolver”_ → [@hookform/resolvers](https://github.com/react-hook-form/resolvers). `npm install react-hook-form @hookform/resolvers`
+3. Install **Zustand** (small global store): search _“Zustand React”_ → [docs.pmnd.rs/zustand](https://docs.pmnd.rs/zustand/getting-started/introduction). `npm install zustand`
 
 **Useful APIs and docs (bookmark these):**
 
