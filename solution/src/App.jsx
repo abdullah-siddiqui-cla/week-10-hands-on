@@ -1,46 +1,40 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Route, Routes } from "react-router";
+import { AuthProvider } from "./context/AuthContext.jsx";
 import HomePage from "./pages/HomePage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
 import MenuPage from "./pages/MenuPage.jsx";
+import SignUpPage from "./pages/SignUpPage.jsx";
 import ThanksPage from "./pages/ThanksPage.jsx";
 import TreatDetailPage from "./pages/TreatDetailPage.jsx";
+import { useCartStore } from "./store/cartStore.js";
 
-function App() {
-  const [orderCount, setOrderCount] = useState(0);
+function DocumentTitleSync() {
+  const cartCount = useCartStore((s) => s.cartItems.length);
 
-  // Mount-only: base document title
-  useEffect(() => {
-    document.title = "Treat Menu";
-  }, []);
-
-  // Dependent: reflect order count in title (outside render)
   useEffect(() => {
     document.title =
-      orderCount === 0
+      cartCount === 0
         ? "Treat Menu"
-        : `Treat Menu — ${orderCount} item${orderCount === 1 ? "" : "s"} in order`;
-  }, [orderCount]);
+        : `Treat Menu — ${cartCount} item${cartCount === 1 ? "" : "s"} in order`;
+  }, [cartCount]);
 
+  return null;
+}
+
+function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route
-        path="/menu"
-        element={
-          <MenuPage orderCount={orderCount} setOrderCount={setOrderCount} />
-        }
-      />
-      <Route
-        path="/treat/:treatId"
-        element={
-          <TreatDetailPage
-            orderCount={orderCount}
-            setOrderCount={setOrderCount}
-          />
-        }
-      />
-      <Route path="/thanks" element={<ThanksPage />} />
-    </Routes>
+    <AuthProvider>
+      <DocumentTitleSync />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/menu" element={<MenuPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/treat/:treatId" element={<TreatDetailPage />} />
+        <Route path="/thanks" element={<ThanksPage />} />
+      </Routes>
+    </AuthProvider>
   );
 }
 

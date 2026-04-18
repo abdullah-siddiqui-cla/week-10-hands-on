@@ -1,12 +1,19 @@
+import { useContext } from "react";
 import { Link, useLocation } from "react-router";
+import { AuthContext } from "../context/AuthContext.jsx";
+import { useCartStore } from "../store/cartStore.js";
 
 const links = [
   { to: "/", label: "Home" },
   { to: "/menu", label: "Menu" },
+  { to: "/login", label: "Log in" },
+  { to: "/signup", label: "Sign up" },
 ];
 
 function Navigation() {
   const { pathname } = useLocation();
+  const { isLoggedIn, userName, logout } = useContext(AuthContext);
+  const cartCount = useCartStore((s) => s.cartItems.length);
 
   return (
     <nav
@@ -33,6 +40,23 @@ function Navigation() {
           </Link>
         );
       })}
+      <span className="text-sm text-amber-800" aria-live="polite">
+        Cart: <strong>{cartCount}</strong>
+      </span>
+      {isLoggedIn ? (
+        <span className="flex flex-wrap items-center gap-2 text-sm text-amber-900">
+          <span>
+            Hi, <strong>{userName}</strong>
+          </span>
+          <button
+            type="button"
+            onClick={logout}
+            className="cursor-pointer rounded-md border border-amber-300 px-2 py-1 text-amber-900 hover:bg-amber-50"
+          >
+            Log out
+          </button>
+        </span>
+      ) : null}
     </nav>
   );
 }
